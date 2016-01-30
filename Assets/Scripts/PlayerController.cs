@@ -9,40 +9,53 @@ public class PlayerController : MonoBehaviour {
     public bool jump = false;
     [HideInInspector]
     public bool running = false;
+    [HideInInspector]
+    public bool grounded = false;
+    [HideInInspector]
+    public bool freeze = false;
 
-    public float walkingJumpForce = 1000f;
-    public float runningJumpForce = 1300f;
-    public float walkingForce = 365f;
-    public float runningForce = 800f;
-    public float maxWalkingSpeed = 5f;
-    public float maxRunningSpeed = 10f;
+    public float walkingJumpForce;
+    public float runningJumpForce;
+    public float walkingForce;
+    public float runningForce;
+    public float maxWalkingSpeed;
+    public float maxRunningSpeed;
 
     private Transform groundCheck;
-    private bool grounded = false;
 
     private Animator anim;
+    private AudioSource audioSource;
+
+    public AudioClip jumpSound;
 
     void Awake()
     {
         groundCheck = transform.Find("GroundCheck");
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
+        audioSource = GetComponentInChildren<AudioSource>();
     }
-
-    void Start () {
-
-	}
 
     void Update()
     {
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
-        if (Input.GetButtonDown("Jump") && grounded) jump = true;
-        if (Input.GetButtonDown("Fire1") && grounded) running = true;
-        if (Input.GetButtonUp("Fire1")) running = false;
-
+        if (!freeze)
+        {
+            if (Input.GetButtonDown("Jump") && grounded) jump = true;
+            if (Input.GetButtonDown("Fire1") && grounded) running = true;
+            if (Input.GetButtonUp("Fire1")) running = false;
+        }
     }
 
     void FixedUpdate () {
+
+        if (freeze)
+        {
+            anim.SetBool("idle", true);
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
+            return;
+        }
+
         float h = Input.GetAxis("Horizontal");
 
         float force = walkingForce;
@@ -68,11 +81,16 @@ public class PlayerController : MonoBehaviour {
         else if (h < 0 && facingRight)
             Flip();
 
-        if (jump)
+        if (jump && !freeze)
         {
+            audioSource.PlayOneShot(jumpSound);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
             jump = false;
         }
+
+        anim.SetFloat("speedx", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
+        anim.SetFloat("speedy", GetComponent<Rigidbody2D>().velocity.y);
+        anim.SetBool("running", running);
     }
 
     void Flip()

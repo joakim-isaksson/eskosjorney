@@ -3,8 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-    public float OffsetX = 11;
-    public float OffsetY = 15;
+    public float OffsetX;
 
     private GameObject player;
 
