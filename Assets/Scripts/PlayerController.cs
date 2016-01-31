@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 
         if (!freeze)
         {
+            Debug.logger.Log("grounded", grounded); //remove
             if (Input.GetButtonDown("Jump") && grounded) jump = true;
             if (Input.GetButtonDown("Fire1") && grounded) running = true;
             if (Input.GetButtonUp("Fire1")) running = false;
