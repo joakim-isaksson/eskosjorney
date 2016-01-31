@@ -5,15 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - ground
-  - Crate
-  - Enemy
-  - Wall
-  - Obstacle
-  - Bullet
-  - BombPickup
-  - ExplosionFX
-  - HealthBar
   - Fader
+  - owl
+  - owl_bubble
+  - owl_text
   layers:
   - Default
   - TransparentFX
@@ -23,11 +18,11 @@ TagManager:
   - UI
   - 
   - 
-  - Bombs
   - Player
-  - Enemies
-  - Pickups
   - Ground
+  - 
+  - 
+  - 
   - 
   - 
   - 

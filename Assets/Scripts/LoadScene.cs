@@ -21,8 +21,8 @@ public class LoadScene : MonoBehaviour {
     void Awake()
     {
         audioSource = GetComponentInChildren<AudioSource>();
-        screenFader = GameObject.FindGameObjectsWithTag("Fader")[0].GetComponent<ScreenFader>();
-        playerController = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>();
+        screenFader = GameObject.FindGameObjectWithTag("Fader").GetComponent<ScreenFader>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
