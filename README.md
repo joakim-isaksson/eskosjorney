@@ -1,5 +1,6 @@
 # Esko's Twisted Jorney
-Platformer made at Global Game Jam 2016.
+2D Adventure Platformer - Global Game Jam 2016.
+http://globalgamejam.org/2016/games/eskos-twisted-journey
 
 #####Theme: Ritual
-![huracan](http://globalgamejam.org/sites/default/files/styles/game_sidebar__wide/public/game/featured_image/title_20.jpg?itok=s4HG0Blg)
+![esko](esko.jpg)
